@@ -4,7 +4,7 @@ trigger:
 pr: none
 
 jobs:
-- job: projectOnePRD-PRD
+- job: projectOnePRD
   steps:
   - task: AzureCLI@1
     inputs:
@@ -12,7 +12,7 @@ jobs:
       scriptLocation: 'scriptPath'
       scriptPath: './terraform.sh'
       arguments: EnterprisePRD-KV projectOnePRD-PRD
-- job: ProjectOneUAT-DEV
+- job: ProjectOneUAT
   steps:
   - task: AzureCLI@1
     inputs:
