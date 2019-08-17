@@ -5,7 +5,7 @@ $job = @"
     inputs:
       azureSubscription: 'Enterprise'
       scriptLocation: 'scriptPath'
-      scriptPath: './tfplan.sh'
+      scriptPath: './terraform.sh'
       arguments: __KVname__ __spokename__
 
 "@
@@ -15,21 +15,23 @@ $spokes = (Get-ChildItem -Path ./spokes/* -Directory)
 $spokes
 
 $yml = @"
+trigger: master
+
+pr: none
+
 jobs:
 
 "@
 
 foreach($spoke in $spokes) {
-	$spoke
 	if($spoke.name -like "_*") { continue }
 	$bits = $spoke.name.split('-')
 	$environment = $bits[1]
-	$environment
 	$spokeJob = $job
 	$spokeJob = $spokeJob.replace("__spokename__", $spoke.name)
-	$spokeJob = $spokeJob.replace("__KVname__", "KeyVault$environment-KV")
+	$spokeJob = $spokeJob.replace("__KVname__", "Enterprise$environment-KV")
 	
 	$yml += $spokeJob
 }
 
-$yml
+$yml | Set-Content -Path .\azure-pipelines.yml
