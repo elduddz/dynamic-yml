@@ -15,7 +15,8 @@ $spokes = (Get-ChildItem -Path ./spokes/* -Directory)
 $spokes
 
 $yml = @"
-trigger: master
+trigger: 
+  - master
 
 pr: none
 
