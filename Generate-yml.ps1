@@ -26,10 +26,11 @@ jobs:
 
 foreach($spoke in $spokes) {
 	if($spoke.name -like "_*") { continue }
-	$bits = $spoke.name.split('-')
+  $bits = $spoke.name.split('-')
+  $jobName = $bits[0]
 	$environment = $bits[1]
 	$spokeJob = $job
-	$spokeJob = $spokeJob.replace("__spokename__", $spoke.name)
+	$spokeJob = $spokeJob.replace("__spokename__", $jobName)
 	$spokeJob = $spokeJob.replace("__KVname__", "Enterprise$environment-KV")
 	
 	$yml += $spokeJob
