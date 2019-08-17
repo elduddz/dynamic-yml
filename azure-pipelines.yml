@@ -1,0 +1,9 @@
+jobs:
+- job: __spokename__
+  steps:
+  - task: AzureCLI@1
+    inputs:
+      azureSubscription: 'Enterprise'
+      scriptLocation: 'scriptPath'
+      scriptPath: './tfplan.sh'
+      arguments: __KVname__ __spokename__
