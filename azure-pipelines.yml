@@ -1,9 +1,22 @@
+trigger: master
+
+pr: none
+
 jobs:
-- job: __spokename__
+- job: projectOnePRD-PRD
   steps:
   - task: AzureCLI@1
     inputs:
       azureSubscription: 'Enterprise'
       scriptLocation: 'scriptPath'
-      scriptPath: './tfplan.sh'
-      arguments: __KVname__ __spokename__
+      scriptPath: './terraform.sh'
+      arguments: EnterprisePRD-KV projectOnePRD-PRD
+- job: ProjectOneUAT-DEV
+  steps:
+  - task: AzureCLI@1
+    inputs:
+      azureSubscription: 'Enterprise'
+      scriptLocation: 'scriptPath'
+      scriptPath: './terraform.sh'
+      arguments: EnterpriseDEV-KV ProjectOneUAT-DEV
+
