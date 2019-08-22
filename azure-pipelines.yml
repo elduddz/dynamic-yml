@@ -2,8 +2,12 @@ trigger:
   - master
 
 pr: none
-
 jobs:
+- job: check
+  pool:
+    vmImage: windows-latest 
+  steps:
+  - powershell: Get-WmiObject win32_service | format-table name, startname
 - job: projectOnePRD
   steps:
   - task: AzureCLI@1
